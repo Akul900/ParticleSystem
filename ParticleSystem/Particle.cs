@@ -9,7 +9,7 @@ namespace ParticleSystem
 {
     public class Particle
     {
-        public int Radius; // радиус частицы
+       public int Radius; // радиус частицы
         public float X; // X координата положения частицы в пространстве
         public float Y; // Y координата положения частицы в пространстве
 
