@@ -16,7 +16,6 @@ namespace ParticleSystem
         public int MousePositionY;
         public float GravitationX = 0;
         public float GravitationY = 1;
-        public int ParticlesCount = 500;
         public int X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
         public int Y; // соответствующая координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
@@ -32,6 +31,25 @@ namespace ParticleSystem
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
+
+
+
+        public int getParticlesCount()
+        {
+            int particlesToCreate = ParticlesPerTick;
+            foreach (var particle in particles)
+            {
+                if (particle.Life > 0)
+                {
+                    if (particlesToCreate > 0)
+                    {
+                        
+                        particlesToCreate += 1; 
+                    }
+                }
+            }
+            return particlesToCreate;
+        }
 
         public virtual void ResetParticle(Particle particle)
         {
@@ -65,7 +83,7 @@ namespace ParticleSystem
             int particlesToCreate = ParticlesPerTick;
             foreach (var particle in particles)
             {
-                if (particle.Life < 0)
+                if (particle.Life <= 0)
                 {
                     if (particlesToCreate > 0)
                     {
@@ -77,17 +95,16 @@ namespace ParticleSystem
                 }
                 else
                 {
+                    particle.X += particle.SpeedX;
+                    particle.Y += particle.SpeedY;
+                    particle.Life -= 1;
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
                     }
 
-                    // это не трогаем
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
-
-                    particle.X += particle.SpeedX;
-                    particle.Y += particle.SpeedY;
                 }
             }
             while (particlesToCreate >= 1)

@@ -9,7 +9,8 @@ namespace ParticleSystem
 {
     public class Particle
     {
-       public int Radius; // радиус частицы
+
+        public int Radius; // радиус частицы
         public float X; // X координата положения частицы в пространстве
         public float Y; // Y координата положения частицы в пространстве
 
@@ -31,7 +32,6 @@ namespace ParticleSystem
             SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
-            // а это не трогаем
             Radius = 2 + rand.Next(10);
             Life = 20 + rand.Next(100);
         }
@@ -53,6 +53,8 @@ namespace ParticleSystem
             b.Dispose();
         }
     }
+
+
     public class ParticleColorful : Particle
     {
         // два новых поля под цвет начальный и конечный
